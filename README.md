@@ -16,6 +16,8 @@ You can install the released version of project3package from GitHub using:
 devtools::install_github("wanyeehing/project3package")
 ```
 
+## Use
+
 To view vignettes, run the following code:
 
 ``` r
