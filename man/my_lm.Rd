@@ -23,3 +23,4 @@ my_lm(formula = mpg ~ hp + wt, data = mtcars)
 my_lm(formula = mpg ~ hp * wt, data = mtcars)
 
 }
+\keyword{inference}

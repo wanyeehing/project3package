@@ -4,6 +4,7 @@
 #'
 #' @param formula A formula class object.
 #' @param data Input data frame.
+#' @keywords inference
 #'
 #' @return A table containing the estimate, standard error, t value,
 #'   and Pr(>|t|).

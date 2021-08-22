@@ -6,6 +6,7 @@
 #' @param cl Vector of true class value of the training data.
 #' @param k_nn Numeric input representing number of neighbors.
 #' @param k_cv Numeric input representing number of folds.
+#' @keywords prediction
 #'
 #' @return A list with a vector of the predicted class and cross-validation
 #'   misclassification error.

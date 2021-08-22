@@ -26,3 +26,4 @@ my_t.test(1:10, alternative = "two.sided", mu = 5)
 my_t.test(c(0, 0.5, -0.5, 0.2, 0), alternative = "less", mu = 0)
 
 }
+\keyword{inference}

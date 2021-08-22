@@ -3,6 +3,7 @@
 #' This function performs random forest cross validation.
 #'
 #' @param k Numeric input representing numbers of folds.
+#' @keywords prediction
 #'
 #' @return Numeric indicating the cross-validation error.
 #'

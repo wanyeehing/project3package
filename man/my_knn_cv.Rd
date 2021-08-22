@@ -29,3 +29,4 @@ my_knn_cv(train, cl, k_nn = 1, k_cv = 5)
 my_knn_cv(train, cl, k_nn = 5, k_cv = 5)
 
 }
+\keyword{prediction}
