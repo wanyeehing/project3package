@@ -15,7 +15,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-# Introduction
+## Introduction
 
 In Statistics, we talk a lot about statistical inference and prediction. So, we
 introduce **project3package** here to provide some functions to handle
@@ -36,7 +36,68 @@ To begin, we load the **project3package**.
 library(project3package)
 ```
 
-# Tutorial for my_t.test
+## Tutorial for my_t.test
 
 Now, I will demonstrate on how to use the my_t.test function provided in
 **project3package**.
+
+In this section, we are going to use the `lifeExp` data from `my_gapminder`,
+so we need to run the following line of code.
+```{r}
+life_exp <- my_gapminder$lifeExp
+```
+
+First of all, let us see how to test the hypothesis:
+$$
+H_0: \mu = 60,\\
+H_a: \mu \neq 60.
+$$
+
+To do it, we call the `my_t.test` function using the following way:
+(Note that we use "two.sided" as the alternative as our alternative hypothesis
+is $\mu \neq 60$)
+```{r}
+my_t.test(life_exp, alternative = "two.sided", mu = 60)
+```
+
+By looking at the result given by the function, we can see that the p-value we
+get in this hypothesis testing is
+`r round(my_t.test(life_exp, alternative = "two.sided", mu = 60)$p_val, 3)`. The
+p-value we get is greater than our cut-off $\alpha = 0.05$. So, we conclude
+that we do not have enough evidence to reject the null hypothesis that
+$\mu = 60$.
+
+Next, let us take a look on how to test another hypothesis:
+$$
+H_0: \mu = 60,\\
+H_a: \mu < 60.
+$$
+
+In this case, the alternative hypothesis have the $<$ sign, so we will use
+"less" as the alternative when using the `my_t.test` function.
+```{r}
+my_t.test(life_exp, alternative = "less", mu = 60)
+```
+
+From this test, we also notice that our p-value,
+`r round(my_t.test(life_exp, alternative = "less", mu = 60)$p_val, 3)` is
+greater than $\alpha = 0.05$. Therefore, we also fail to reject the null
+hypothesis that $\mu = 60$.
+
+For the last case where the alternative hypothesis have the $>$ sign,
+$$
+H_0: \mu = 60,\\
+H_a: \mu > 60.
+$$
+we will use the following code:
+
+```{r}
+my_t.test(life_exp, alternative = "greater", mu = 60)
+```
+
+In the last case, we see that the p-value is
+`r round(my_t.test(life_exp, alternative = "greater", mu = 60)$p_val, 3)`.
+This p-value is less than $\alpha = 0.05$, so we have enough evidence to
+reject the null hypothesis, $\mu = 60$.
+
+## Tutorial for my_lm
