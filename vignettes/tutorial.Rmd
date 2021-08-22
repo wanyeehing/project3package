@@ -15,6 +15,25 @@ knitr::opts_chunk$set(
 )
 ```
 
+# Introduction
+
+In Statistics, we talk a lot about statistical inference and prediction. So, we
+introduce \texttt{project3package} here to provide some functions to handle
+statistical inference and statistical prediction. Specifically,
+\texttt{project3package} provides four functions:
+\begin{itemize}
+\item my_t.test function
+\item my_lm function
+\item my_knn_cv function
+\item my_rf_cv function
+\end{itemize}
+
+To install \texttt{project3package}, use the following code:
+```{r install, eval = FALSE}
+devtools::install_github("wanyeehing/project3package")
+```
+
+To begin, we load the project3package.
 ```{r setup}
 library(project3package)
 ```
