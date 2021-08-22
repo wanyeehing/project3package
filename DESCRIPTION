@@ -14,12 +14,16 @@ Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
 Imports: 
     class,
+    dplyr,
+    ggplot2,
     palmerpenguins,
-    randomForest
+    randomForest,
+    tibble
 Suggests: 
-    rmarkdown,
     knitr,
-    testthat (>= 3.0.0) covr)
+    rmarkdown,
+    testthat (>= 3.0.0),
+    covr
 Config/testthat/edition: 3
 Depends: 
     R (>= 2.10)
