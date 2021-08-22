@@ -1,3 +1,11 @@
-test_that("multiplication works", {
-  expect_equal(2 * 2, 4)
+library(class)
+train <- rbind(iris3[, , 1], iris3[, , 2], iris3[, , 3])
+cl <- factor(c(rep("s", 50), rep("c", 50), rep("v", 50)))
+
+test_that("my_knn_cv works", {
+  expect_equal(my_knn_cv(train, cl, k_nn = 1, k_cv = 5)$cv_err, 0.04)
+})
+
+test_that("incorrect input throws error", {
+  expect_error(my_knn_cv(train, cl, k_nn = "string", k_cv = 5))
 })
