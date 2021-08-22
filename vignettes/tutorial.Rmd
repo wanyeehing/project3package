@@ -15,6 +15,11 @@ knitr::opts_chunk$set(
 )
 ```
 
+\addtolength{\headheight}{-.025\textheight} 
+\thispagestyle{fancyplain} 
+\rhead{\includegraphics[height=.1\textheight]{logo.png}}
+\renewcommand{\headrulewidth}{0pt}
+
 # Introduction
 
 In Statistics, we talk a lot about statistical inference and prediction. So, we
@@ -37,3 +42,7 @@ To begin, we load the project3package.
 ```{r setup}
 library(project3package)
 ```
+
+# Tutorial for my_t.test
+
+
