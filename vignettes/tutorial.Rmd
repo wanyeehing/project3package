@@ -15,34 +15,28 @@ knitr::opts_chunk$set(
 )
 ```
 
-\addtolength{\headheight}{-.025\textheight} 
-\thispagestyle{fancyplain} 
-\rhead{\includegraphics[height=.1\textheight]{logo.png}}
-\renewcommand{\headrulewidth}{0pt}
-
 # Introduction
 
 In Statistics, we talk a lot about statistical inference and prediction. So, we
-introduce \texttt{project3package} here to provide some functions to handle
+introduce **project3package** here to provide some functions to handle
 statistical inference and statistical prediction. Specifically,
-\texttt{project3package} provides four functions:
-\begin{itemize}
-\item my_t.test function
-\item my_lm function
-\item my_knn_cv function
-\item my_rf_cv function
-\end{itemize}
+**project3package** provides four functions:
+* my_t.test function
+* my_lm function
+* my_knn_cv function
+* my_rf_cv function
 
-To install \texttt{project3package}, use the following code:
+To install **project3package**, use the following code:
 ```{r install, eval = FALSE}
 devtools::install_github("wanyeehing/project3package")
 ```
 
-To begin, we load the project3package.
+To begin, we load the **project3package**.
 ```{r setup}
 library(project3package)
 ```
 
 # Tutorial for my_t.test
 
-
+Now, I will demonstrate on how to use the my_t.test function provided in
+**project3package**.
