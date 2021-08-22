@@ -15,3 +15,15 @@ You can install the released version of project3package from GitHub using:
 ``` r
 devtools::install_github("wanyeehing/project3package")
 ```
+
+To view vignettes, run the following code:
+
+``` r
+devtools::install_github("wanyeehing/project3package", build_vignette = TRUE,
+                         build_opts = c())
+library(project3package)
+# Use this to view the vignette in the project3package HTML help
+help(package = "project3package", help_type = "html")
+# Use this to view the vignette as an isolated HTML file
+utils::browseVignettes(package = "project3package")
+```
