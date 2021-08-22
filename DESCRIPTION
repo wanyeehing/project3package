@@ -17,8 +17,10 @@ Imports:
     palmerpenguins,
     randomForest
 Suggests: 
-    testthat (>= 3.0.0)
-    covr
+    rmarkdown,
+    knitr,
+    testthat (>= 3.0.0) covr)
 Config/testthat/edition: 3
 Depends: 
     R (>= 2.10)
+VignetteBuilder: knitr
