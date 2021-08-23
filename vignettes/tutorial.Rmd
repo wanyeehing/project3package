@@ -45,7 +45,7 @@ package to demonstrate the functions.
 ## Tutorial for my_t.test
 
 Now, I will demonstrate on how to use the my_t.test function provided in
-**project3package**.
+`project3package`.
 
 In this section, we are going to use the `lifeExp` data from `my_gapminder`,
 so we need to run the following line of code.
@@ -121,7 +121,20 @@ From the regression, we get a `gdpPercap` coefficient of `r regression[2, 1]`.
 This value tells us that for every 1 scale increase in `gdpPercap`, the
 `lifeExp` increase by `r regression[2, 1]`.
 
-The call give a t-value of `r regression[2, 3]` to gdpPercap.
+Now, let us conduct a hypothesis test:
+$$
+H_0: \beta = 0,\\
+H_a: \beta \neq 0.
+$$
+```{r}
+test_stat <- (regression[2, 1] - 0) / regression[2, 2]
+up_area <- pt(abs(test_stat), nrow(my_gapminder) - 1, lower.tail = FALSE)
+p_val <- up_area * 2
+p_val
+```
+The p-value we get from the hypothesis test is `r p_val`. This value is less
+than $\alpha = 0.05$, so we have enough evidence to reject the null hypothesis,
+$\beta = 0$.
 
 ```{r}
 gdp_est <- regression[, 1]
@@ -140,7 +153,9 @@ ggplot(plot_df, aes(x = fitted, y = actual, color = continent)) +
                                   size = 16))
 ```
 
-**still not done yet**
+From the Actual vs. Fitted plot, we can see that all continents have similar
+shapes. The most special case is Asia continent where it contains a few points
+spreaded on the right side of the plot.
 
 ## Tutorial for my_knn_cv
 
@@ -183,7 +198,28 @@ for (i in 1:10) {
 }
 ```
 
-**explain on the remaining bullet points**
+I made a table for the training misclassification rates and CV
+misclassification rates for each `k_nn`.
+```{r}
+err_tab <- cbind(trn_err, cv_err)
+err_tab
+```
+
+If I were to choose a model only based on the training misclassification rates,
+I will choose the model with `k_nn` = 1 because it has the lowest training
+misclassification rate, which is `r err_tab[1, 1]`. To choose based on CV
+misclassification rates, I will also choose the model with `k_nn` = 1. It is
+because it has the lowest CV misclassification rate, which is `r err_tab[1, 2]`.
+In practice, I will choose the model with `k_nn` = 1 since it has lowest value
+in both training misclassification rate and CV misclassification rate.
+
+In cross-validation, we first split data into `k_cv` folds. Then, we use all
+but 1 fold as the training data and fit the model. At the same time, we use
+the remaining fold as the test data and make predictions. After that, we
+switch the fold and repeat the previous process until all folds have been test
+data. And finally we compute squared error. Cross-validation is useful because
+we can come up with a reasonable estimate of our out-of-sample test-error and
+we can choose among several models based on the test error we get from it.
 
 ## Tutorial for my_rf_cv
 
@@ -262,4 +298,11 @@ rownames(result_mat) <- c("k = 2", "k = 5", "k = 10")
 result_mat
 ```
 
-**discuss result**
+From the boxplots, we can see that the model with `k` = 10 has the lowest
+interquartile range compare to the other two. It is the only one that contain
+outlier. From the table, I see that the mean accross different `k`s are
+similar, with `k` = 2 has the highest value of mean CV estimate and `k` = 10
+has the lowest mean CV estimate value. Also, the model with `k` = 2 has the
+highest value of standard deviation of the CV estimates while `k` = 10 has
+the lowest. It happens because when the value of `k` increases, the variance
+decreases.
