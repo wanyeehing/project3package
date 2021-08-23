@@ -131,4 +131,47 @@ plot_df <- data.frame("actual" = my_gapminder$gdpPercap,
 ggplot(plot_df, aes(x = fitted, y = actual, color = continent)) + geom_point()
 ```
 
+**still not done yet**
 
+## Tutorial for my_knn_cv
+
+In this section, we will be looking at the `my_knn_cv` function. It is a
+function that performs k-nearest neighbors cross-validation. In this tutorial,
+we will be using data from `my_penguins`.
+
+Because the `my_penguins` data consists of some `NA` values, we need to clean
+them out:
+```{r}
+clean <- na.omit(my_penguins)
+```
+
+Then, we determine the train and test that we are going to use in the function.
+Since we are going to predict output class `species` using covariates
+`bill_length_mm`, `bill_depth_mm`, `flipper_length_mm`, and `body_mass_g`, we
+will run the following lines of code:
+```{r}
+train_knn <- clean[, c("bill_length_mm", "bill_depth_mm", "flipper_length_mm",
+                   "body_mass_g")]
+test_knn <- clean$species
+```
+
+Since we are going to iterate through `k_nn` from 1 to 10, we first create empty
+lists to store the training misclassification rates and CV misclassification
+rates.
+```{r}
+trn_err <- c()
+cv_err <- c()
+```
+
+After that, we iterate through `k_nn` from 1 to 10 using `k_cv = 5` in the
+`my_lm` function and record the training misclassification rates and CV
+misclassification rates inside.
+```{r}
+for (i in 1:10) {
+  my_knn <- my_knn_cv(train = train_knn, cl = test_knn, k_nn = i, k_cv = 5)
+  cv_err[i] <- my_knn$cv_err
+  trn_err[i] <- mean(my_knn$class != test_knn)
+}
+```
+
+**explain on the remaining bullet points**
