@@ -207,3 +207,59 @@ for (i in c(2, 5, 10)) {
 }
 ```
 
+Now, we will plot a box plot for each `k` value.
+```{r}
+k2_df <- data.frame("x" = "2",
+                    "y" = all_mse[, 1])
+ggplot(k2_df, aes(x = x, y = y)) +
+  geom_boxplot(fill = "lightgreen") +
+  theme_bw(base_size = 14) +
+  theme(plot.title = element_text(hjust = 0.5,
+                                  face = "bold",
+                                  size = 16)) +
+  labs(title = "Estimated MSE for k = 2",
+       x = "k value",
+       y = "MSE")
+
+k5_df <- data.frame("x" = "5",
+                    "y" = all_mse[, 2])
+ggplot(k5_df, aes(x = x, y = y)) +
+  geom_boxplot(fill = "lightgreen") +
+  theme_bw(base_size = 14) +
+  theme(plot.title = element_text(hjust = 0.5,
+                                  face = "bold",
+                                  size = 16)) +
+  labs(title = "Estimated MSE for k = 5",
+       x = "k value",
+       y = "MSE")
+
+k10_df <- data.frame("x" = "10",
+                     "y" = all_mse[, 3])
+ggplot(k10_df, aes(x = x, y = y)) +
+  geom_boxplot(fill = "lightgreen") +
+  theme_bw(base_size = 14) +
+  theme(plot.title = element_text(hjust = 0.5,
+                                  face = "bold",
+                                  size = 16)) +
+  labs(title = "Estimated MSE for k = 10",
+       x = "k value",
+       y = "MSE")
+```
+
+Then, I created a table that shows the average CV estimate and the standard
+deviation of the CV estimates across k.
+```{r}
+ave_err <- c()
+sd_err <- c()
+for (i in 1:3) {
+  ave_err[i] <- mean(all_mse[,  i])
+  sd_err[i] <- sd(all_mse[, i])
+}
+
+result_mat <- cbind(ave_err, sd_err)
+colnames(result_mat) <- c("mean", "sd")
+rownames(result_mat) <- c("k = 2", "k = 5", "k = 10")
+result_mat
+```
+
+**discuss result**
