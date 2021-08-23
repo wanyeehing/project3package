@@ -18,23 +18,25 @@ knitr::opts_chunk$set(
 ## Introduction
 
 In Statistics, we talk a lot about statistical inference and prediction. So, we
-introduce **project3package** here to provide some functions to handle
+introduce `project3package` here to provide some functions to handle
 statistical inference and statistical prediction. Specifically,
-**project3package** provides four functions:
+`project3package` provides four functions:
 * my_t.test function
 * my_lm function
 * my_knn_cv function
 * my_rf_cv function
 
-To install **project3package**, use the following code:
+To install `project3package`, use the following code:
 ```{r install, eval = FALSE}
 devtools::install_github("wanyeehing/project3package")
 ```
 
-To begin, we load the **project3package**.
+To begin, we load the `project3package`.
 ```{r setup}
 library(project3package)
 library(ggplot2)
+data("my_gapminder")
+data("my_penguins")
 ```
 
 In this tutorial, I will be using data from `gapminder` and `palmerpenguins`
@@ -125,10 +127,17 @@ The call give a t-value of `r regression[2, 3]` to gdpPercap.
 gdp_est <- regression[, 1]
 x <- model.matrix(lifeExp ~ gdpPercap + continent, data = my_gapminder)
 fitted <- x %*% gdp_est
-plot_df <- data.frame("actual" = my_gapminder$gdpPercap,
+plot_df <- data.frame("actual" = my_gapminder$lifeExp,
                       "fitted" = fitted,
                       "continent" = my_gapminder$continent)
-ggplot(plot_df, aes(x = fitted, y = actual, color = continent)) + geom_point()
+ggplot(plot_df, aes(x = fitted, y = actual, color = continent)) +
+  geom_point() +
+  labs(title = "Actual vs. Fitted",
+       x = "Fitted", y = "Actual") +
+  theme_bw(base_size = 14) +
+  theme(plot.title = element_text(hjust = 0.5,
+                                  face = "bold",
+                                  size = 16))
 ```
 
 **still not done yet**
@@ -156,7 +165,7 @@ test_knn <- clean$species
 ```
 
 Since we are going to iterate through `k_nn` from 1 to 10, we first create empty
-lists to store the training misclassification rates and CV misclassification
+vectors to store the training misclassification rates and CV misclassification
 rates.
 ```{r}
 trn_err <- c()
@@ -175,3 +184,26 @@ for (i in 1:10) {
 ```
 
 **explain on the remaining bullet points**
+
+## Tutorial for my_rf_cv
+
+The function `my_rf_cv` is doing random forest cross-validation. This section
+will demonstrate how to use this function. We are going to use `my_rf_cv`
+to predict `body_mass_g` using covariates `bill_length_mm`, `bill_depth_mm`,
+and `flipper_length_mm`.
+
+In this tutorial, we will do random forest cross-validation for `k` value
+2, 5, and 10. For each of the value of `k`, we will call our `my_rf_cv`
+function for 30 times and record the respective mean squared error (MSE).
+```{r}
+all_mse <- matrix(NA, nrow = 30, ncol = 3)
+counter <- 1
+
+for (i in c(2, 5, 10)) {
+  for (j in 1:30) {
+    all_mse[j, counter] <- my_rf_cv(i)
+  }
+  counter <- counter + 1
+}
+```
+
