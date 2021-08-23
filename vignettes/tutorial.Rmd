@@ -34,7 +34,11 @@ devtools::install_github("wanyeehing/project3package")
 To begin, we load the **project3package**.
 ```{r setup}
 library(project3package)
+library(ggplot2)
 ```
+
+In this tutorial, I will be using data from `gapminder` and `palmerpenguins`
+package to demonstrate the functions.
 
 ## Tutorial for my_t.test
 
@@ -101,3 +105,30 @@ This p-value is less than $\alpha = 0.05$, so we have enough evidence to
 reject the null hypothesis, $\mu = 60$.
 
 ## Tutorial for my_lm
+
+In this section, I will demonstrate the usage of `my_lm` function. Here, we will
+do a regression using `lifeExp` as the response variable and `gdpPercap` and
+`continent` as the explanatory variables.
+
+```{r}
+regression <- my_lm(lifeExp ~ gdpPercap + continent, data = my_gapminder)
+regression
+```
+
+From the regression, we get a `gdpPercap` coefficient of `r regression[2, 1]`.
+This value tells us that for every 1 scale increase in `gdpPercap`, the
+`lifeExp` increase by `r regression[2, 1]`.
+
+The call give a t-value of `r regression[2, 3]` to gdpPercap.
+
+```{r}
+gdp_est <- regression[, 1]
+x <- model.matrix(lifeExp ~ gdpPercap + continent, data = my_gapminder)
+fitted <- x %*% gdp_est
+plot_df <- data.frame("actual" = my_gapminder$gdpPercap,
+                      "fitted" = fitted,
+                      "continent" = my_gapminder$continent)
+ggplot(plot_df, aes(x = fitted, y = actual, color = continent)) + geom_point()
+```
+
+
